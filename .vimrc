@@ -41,26 +41,30 @@ autocmd GUIEnter * set visualbell t_vb=
 "Set Color Scheme and Font Options {{{
 "set guifont=Anonymice_Powerline:h10:cANSI:qDRAFT
 
-let g:dark_colo = '256_custom-2'
-let g:light_colo = 'github'
+if ($XDG_CURRENT_DESKTOP != "GNOME")
+	let g:dark_colo = '256_custom-2'
+	let g:light_colo = 'github'
 
-function! SwitchColor()
-	if (&background == "dark")
-		set background=light
-		execute "colorscheme ".g:light_colo
-	else
-		set background=dark
-		execute "colorscheme ".g:dark_colo
-	endif
-endfunction
+	function! SwitchColor()
+		if (&background == "dark")
+			set background=light
+			execute "colorscheme ".g:light_colo
+		else
+			set background=dark
+			execute "colorscheme ".g:dark_colo
+		endif
+	endfunction
 
-set background=dark
-execute "colorscheme ".g:dark_colo
+	set background=dark
+	execute "colorscheme ".g:dark_colo
 
-augroup anyfile
-	autocmd!
-	autocmd vimenter * nnoremap <localleader>b : call SwitchColor()<CR>
-augroup end>
+	augroup anyfile
+		autocmd!
+		autocmd vimenter * nnoremap <localleader>b : call SwitchColor()<CR>
+	augroup end>
+else
+	colorscheme default
+endif
 " }}}
 
 set encoding=utf-8
@@ -92,6 +96,7 @@ set nocursorcolumn nocursorline
 
 let python_highlight_all = 1
 
+let maplocalleader="ù"
 let g:layout = system('xkblayout-state print "%e"')
 if layout == 'azerty'
 	let maplocalleader="ù"
