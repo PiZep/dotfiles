@@ -27,7 +27,7 @@ Plug 'othree/xml.vim'
 Plug 'rstacruz/sparkup'
 
 " Waiting to install ccls for language server
-" Plug 'natebosch/vim-lsc'
+Plug 'natebosch/vim-lsc'
 "
 
 call plug#end()
