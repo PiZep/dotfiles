@@ -2,8 +2,36 @@
 set nocompatible              " be iMproved, required
 
 "Personal Settings.
+
 "Set Pathogen
-execute pathogen#infect()
+"execute pathogen#infect()
+
+" Trying vim-plug
+call plug#begin('~/.vim/bundle')
+
+" Plugins not as usefull, but who knows
+" Plug 'command-t' | Plug 'L9'
+
+Plug 'vim-syntastic/syntastic'
+Plug 'vim-scripts/Smart-Tabs'
+
+Plug 'sudar/vim-arduino-syntax'
+
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+
+Plug 'vim-scripts/dbext.vim'
+Plug 'justinmk/vim-syntax-extra'
+Plug 'othree/xml.vim'
+Plug 'rstacruz/sparkup'
+
+" Waiting to install ccls for language server
+" Plug 'natebosch/vim-lsc'
+"
+
+call plug#end()
+
 filetype plugin indent on
 syntax on
 set omnifunc=syntaxcomplete#Complete

@@ -1,0 +1,2 @@
+# Ignore every .git inside plugins' directories
+*/.git/
