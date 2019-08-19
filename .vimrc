@@ -16,6 +16,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'vim-scripts/Smart-Tabs'
 
 Plug 'sudar/vim-arduino-syntax'
+Plug 'vim-python/python-syntax'
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -210,6 +211,7 @@ augroup filetype_octave
 	autocmd FileType matlab setlocal keywordprg=info\ octave\ --vi-keys\ --index-search
 augroup end"}}}
 
+" c files settings {{{
 augroup filetype_c
 	autocmd!
 	autocmd BufRead,BufNewFile *.c,*.o,*.h setlocal
@@ -217,6 +219,19 @@ augroup filetype_c
 				\ cindent
 				\ cinoptions=(0,u0,U0
 augroup end
+"}}}
+
+" python files settings {{{
+augroup filetype_python
+	autocmd!
+	autocmd BufRead,BufNewFile *.py,*.pyc setlocal
+				\ foldmethod=indent
+				\ tabstop=4
+				\ expandtab
+				\ softtabstop=4
+				\ autoindent
+augroup end
+"}}}
 
 "Not used-------{{{
 
