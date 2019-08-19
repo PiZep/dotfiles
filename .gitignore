@@ -1,2 +1,6 @@
 # Ignore every .git inside plugins' directories
 # */.git/
+
+*
+!.vimrc
+!.vim/autoload

@@ -69,7 +69,9 @@ autocmd GUIEnter * set visualbell t_vb=
 "Set Color Scheme and Font Options {{{
 "set guifont=Anonymice_Powerline:h10:cANSI:qDRAFT
 
-if ($XDG_CURRENT_DESKTOP != "GNOME")
+if &term=~'linux'
+	colorscheme default
+else
 	let g:dark_colo = '256_custom-2'
 	let g:light_colo = 'github'
 
@@ -90,8 +92,6 @@ if ($XDG_CURRENT_DESKTOP != "GNOME")
 		autocmd!
 		autocmd vimenter * nnoremap <localleader>b : call SwitchColor()<CR>
 	augroup end>
-else
-	colorscheme default
 endif
 " }}}
 
