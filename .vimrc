@@ -17,6 +17,7 @@ Plug 'vim-scripts/Smart-Tabs'
 
 Plug 'sudar/vim-arduino-syntax'
 Plug 'vim-python/python-syntax'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -41,12 +42,17 @@ set ignorecase
 
 " Language Server Protocol: vim-lsc configuration
 if executable('ccls')
-	let g:lsc_server_commands = {'c': 'ccls'}
-
+	let g:lsc_server_commands = {
+				\ 'c': 'ccls',
+				\ 'python': 'pyls'}
+else
+	let g:lsc_server_commands = {
+				\ 'python': 'pyls'}
+	
+endif
 	let g:lsc_auto_map = v:true
 	autocmd CompleteDone * silent! pclose
 	autocmd InsertEnter,BufEnter * let status = LSCServerStatus()
-endif
 " LSP
 " if executable('ccls')
 " 	autocmd User lsp_setup call lsp#register_server({
@@ -70,8 +76,8 @@ autocmd GUIEnter * set visualbell t_vb=
 "Set Color Scheme and Font Options {{{
 "set guifont=Anonymice_Powerline:h10:cANSI:qDRAFT
 
-if &term=~'linux'
-	colorscheme default
+if &term=~'linux' || &term!~'256'
+	colorscheme elflord
 else
 	let g:dark_colo = '256_custom-2'
 	let g:light_colo = 'github'
@@ -139,6 +145,21 @@ set noexpandtab
 set softtabstop=0
 set shiftwidth=4
 set tabstop=4
+
+" Custom functions{{{
+function! CheckPatternUnderCursor(pattern)
+	let length = strlen(a:pattern)
+	let str_under = strcharpart(getline('.'), col('.') - 2, l:length)
+	echom l:str_under a:pattern l:length
+	if l:str_under ==# a:pattern
+		echom "CheckPatternUnderCursor success"
+		return 1
+	else
+		echom "CheckPatternUnderCursor failure"
+		return 0
+	endif
+endfunction
+" }}}
 
 " Mappings {{{
 inoremap jk <Esc>
@@ -220,16 +241,18 @@ augroup filetype_c
 				\ cinoptions=(0,u0,U0
 augroup end
 "}}}
-
+"(:"
 " python files settings {{{
 augroup filetype_python
 	autocmd!
-	autocmd BufRead,BufNewFile *.py,*.pyc setlocal
+	autocmd BufRead,BufEnter,BufNewFile *.py,*.pyc setlocal
 				\ foldmethod=indent
-				\ tabstop=4
+				\ tabstop=8
 				\ expandtab
 				\ softtabstop=4
 				\ autoindent
+	autocmd BufRead,BufEnter,BufNewFile *.py,*.pyc
+				\ inoremap <buffer> <expr> : CheckPatternUnderCursor('(') ?  "):<ESC>o":':'
 augroup end
 "}}}
 
