@@ -61,8 +61,8 @@ hi Identifier   ctermfg=75      cterm=none
 hi PreProc      ctermfg=102     cterm=bold
 hi Comment      ctermfg=242
 hi Constant     ctermfg=252     cterm=none
-hi String       ctermfg=113
-hi Function     ctermfg=67      cterm=bold
+hi String       ctermfg=67
+hi Function     ctermfg=113     cterm=bold
 hi Statement    ctermfg=186     cterm=bold
 hi Type         ctermfg=145     cterm=bold
 hi Number       ctermfg=143
