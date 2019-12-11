@@ -1,10 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/home/pierre/.cache'
-let g:netrw_dirhist_2='/home/pierre/.abduco'
-let g:netrw_dirhist_3='/opt/void-packages/srcpkgs/slstatus'
-let g:netrw_dirhist_4='/home/pierre/qmk_firmware/keyboards/keebio/iris/keymaps/davidrambo'
-let g:netrw_dirhist_5='/home/pierre/.vim'
-let g:netrw_dirhist_6='/home/pierre/.arduino15'
-let g:netrw_dirhist_7='/home/pi/projets/flask-video-streaming/templates'
-let g:netrw_dirhist_8='/'
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/etc/sv/dhcpcd/supervise'
+let g:netrw_dirhist_3='/etc/sv/dhcpcd'
+let g:netrw_dirhist_2='/home/pierre/projects/timelapse_control/timelapse/01'
+let g:netrw_dirhist_1='/home/pierre/projects/flask-video-streaming'

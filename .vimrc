@@ -1,8 +1,8 @@
 "Vundle config
 set nocompatible              " be iMproved, required
+packadd! matchit
 
 "Personal Settings.
-
 "Set Pathogen
 "execute pathogen#infect()
 
@@ -11,18 +11,22 @@ call plug#begin('~/.vim/bundle')
 
 " Plugins not as usefull, but who knows
 " Plug 'command-t' | Plug 'L9'
-
+ 
+Plug 'junegunn/vim-easy-align'
 Plug 'vim-syntastic/syntastic'
 Plug 'vim-scripts/Smart-Tabs'
+Plug 'tranvansang/vim-close-pair'
 
 Plug 'sudar/vim-arduino-syntax'
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'mattn/emmet-vim'
+Plug 'fatih/vim-go'
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 
 Plug 'vim-scripts/dbext.vim'
 Plug 'justinmk/vim-syntax-extra'
@@ -43,15 +47,28 @@ set ignorecase
 
 " Language Server Protocol: vim-lsc configuration
 if executable('ccls')
-    let g:lsc_server_commands = {
-		\ 'c': 'ccls',
-		\ 'python': 'pyls'}
+    let c_lsp = 'ccls'
 else
-    let g:lsc_server_commands = {
-		\ 'python': 'pyls'}
-
+    let c_lsp = 'clangd'
 endif
-let g:lsc_auto_map = v:true
+let g:lsc_server_commands = {
+		\ 'c':      c_lsp,
+		\ 'python': 'pyls',
+                \ 'go':     'gopls',
+                \ }
+let g:lsc_auto_map = {
+            \ 'GoToDefinition': 'gd',
+            \ 'FindReferences': 'gr',
+            \ 'Rename':         'gR',
+            \ 'ShowHover':      'K',
+            \ 'Completion':     'omnifunc',
+            \}
+
+let g:lsc_enable_autocomplete  = v:true
+let g:lsc_enable_diagnostics   = v:true
+let g:lsc_reference_highlights = v:true
+let g:lsc_trace_leve           = 'message'
+
 autocmd CompleteDone * silent! pclose
 autocmd InsertEnter,BufEnter * let status = LSCServerStatus()
 
@@ -115,6 +132,8 @@ set history=1000
 set undolevels=1000
 set noerrorbells
 set nocursorcolumn nocursorline
+set textwidth=79
+set formatoptions+=t
 
 let python_highlight_all = 1
 
@@ -128,10 +147,9 @@ endif
 
 " Default indentation
 set copyindent
-set noexpandtab
-set softtabstop=0
+set expandtab
+set softtabstop=4
 set shiftwidth=4
-set tabstop=8
 
 " Custom functions{{{
 function! CheckPatternUnderCursor(pattern)
@@ -160,10 +178,19 @@ function! s:AutoColon()
 	return "\<CR>"
 endfunction
 
+function! GetCharUnderCursor()
+    return matchstr(getline('.'), '\%'.col('.').'c.')
+endfunction
+
 " }}}
 
 "Emmet settings{{{
 let g:user_emmet_leader_key="<C-e>"
+"}}}
+
+"EasyAling settings{{{
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 "}}}
 
 " Mappings {{{
@@ -171,6 +198,8 @@ inoremap jk <Esc>
 vnoremap jk <Esc>
 inoremap vd <Esc>
 vnoremap vd <Esc>
+nnoremap <silent> j gj
+nnoremap <silent> k gk
 
 nnoremap <silent> <localleader>e :vsplit $MYVIMRC<CR>
 nnoremap <silent> <localleader>s :source $MYVIMRC<CR>
@@ -178,7 +207,8 @@ nnoremap <silent> <localleader>j ddp
 nnoremap <silent> <localleader>k ddkP
 nnoremap <silent> <localleader>h :set hlsearch!<CR>
 nnoremap <silent> <localleader>c :set cursorline! cursorcolumn!<CR>
-nnoremap <silent> <localleader>u :echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
+nnoremap <silent> <localleader>u :echo synIDattr(synID(line("."), 
+            \col("."), 1), "name")<CR>
 inoremap {<CR> {<CR>}<C-c>O
 inoremap (; ();<ESC>ba
 inoremap [; [];<ESC>ba
