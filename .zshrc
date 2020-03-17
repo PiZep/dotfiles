@@ -50,3 +50,4 @@ setopt prompt_subst
 RPROMPT="%F{blue}"\$vcs_info_msg_0_"%F{red}%*"
 PROMPT="%(!.%F{magenta}%n.%F{green}%n) %F{blue}[%2~] %F{cyan}%# %f"
 zstyle ':vcs_inf:git:*' format '%b'
+[ -v WLSENV ] && source "~/.profile"
